@@ -1,0 +1,45 @@
+﻿@page
+@model WebDönemProjesi.Pages.People.IndexModel
+@{
+}
+
+<br>
+<h2>Kişiler Listesi</h2>
+<a class='btn btn-primary btn-sm' href='/People/Create'>Kişi Ekle</a>
+<table class="table">
+    <thead>
+                <tr style="color:darkolivegreen">
+            <th>ID</th>
+            <th>İsim</th>
+            <th>Soyisim</th>
+            <th>Yaş</th>
+            <th>Doğum Tarihi</th>
+            <th>Cinsiyet</th>
+            <th>Fotoğraf</th>
+            <th>İşlem</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var person in Model.listPeoples){
+            <tr>
+                <td>@person.Id</td>
+                <td>@person.Isim</td>
+                <td>@person.Soyad</td>
+                <td>@person.Yas</td>
+                <td>@person.DogumTarihi</td>
+                <td>@person.Cinsiyet</td>
+                <td>@person.Fotograf</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" href="/People/Edit?id=@person.Id">Düzenle</a>
+                    <a class="btn btn-danger btn-sm" href="/People/Delete?id=@person.Id">Sil </a>
+
+                </td>
+            </tr>
+        }
+        
+
+    </tbody>
+</table>
+
+
+

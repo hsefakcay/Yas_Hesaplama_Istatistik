@@ -1,0 +1,19 @@
+﻿@page
+@using System.Data.SqlClient;
+@{
+	String id = Request.Query["id"];
+
+	String connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=WebFinalProje;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+	using(SqlConnection connection = new SqlConnection(connectionString))
+	{
+		connection.Open();
+
+		String sql = "DELETE FROM people WHERE id=@id";
+		using(SqlCommand command = new SqlCommand(sql, connection))
+		{
+			command.Parameters.AddWithValue("@id", id);
+			command.ExecuteNonQuery();
+		}
+	}
+	Response.Redirect("/People");
+}

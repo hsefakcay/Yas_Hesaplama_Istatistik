@@ -1,0 +1,48 @@
+﻿@page
+@using WebDönemProjesi.Pages
+@model PersonModel;
+@{
+}
+<h1 style="padding:12px; box-sizing:content-box; color:darkblue">Kişiler Listesi</h1>
+
+
+ 
+<h3 style="color:cornflowerblue">Girilen Kişiler</h3>
+<table class="table">
+    <thead>
+                <tr style="color:darkolivegreen">
+            <th>ID</th>
+            <th>İsim</th>
+            <th>Soyisim</th>
+            <th>Doğum Tarihi</th>
+            <th>Yaş</th>
+            <th>Cinsiyet</th>
+            <th>Fotoğraf</th>
+            <th>İşlem</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var person in PersonModel.listPerson){
+            <tr>
+                <td>@person.Id</td>
+                <td>@person.Isim</td>
+                <td>@person.Soyad</td>
+                <td>@person.DogumTarihi</td>
+                <td>@person.Yas</td>
+                <td>@person.Cinsiyet</td>
+                <td>@person.Fotograf</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" href="/Person/Edit?id=@person.Id"style="background-color:forestgreen;border-radius:8px;">Düzenle</a>
+                    <a class="btn btn-primary btn-sm" href="/Person/Delete?id=@person.Id"style="background-color:red;border-radius:8px;">Sil </a>
+
+                </td>
+            </tr>
+        }
+        
+
+    </tbody>
+</table>
+
+<div class="d-flex justify-content-center mt-10">
+    <a class="btn btn-primary btn-sm" href="Index" style="background-color:darkblue; ;border-radius:12px; font-size:18px">Yeni Kişi Ekle</a>
+</div>

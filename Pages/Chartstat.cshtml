@@ -1,0 +1,70 @@
+﻿@page
+@model WebDönemProjesi.Pages.Shared.ChartstatcshtmlModel
+@{
+}
+<h1>İstatistikler</h1>
+
+@{
+	int maleCount = Model.listPeople.Count(person => person.Cinsiyet.Replace(" ", "") == "Erkek");
+	int femaleCount = Model.listPeople.Count(person => person.Cinsiyet.Replace(" ", "") == "Kadin");
+	int totalCount = maleCount + femaleCount;
+
+	int ageGroup1 = Model.listPeople.Count(person => int.Parse(person.Yas) >= 0 && int.Parse(person.Yas) <= 15);
+	int ageGroup2 = Model.listPeople.Count(person => int.Parse(person.Yas) >= 15 && int.Parse(person.Yas) <= 30);
+	int ageGroup3 = Model.listPeople.Count(person => int.Parse(person.Yas) >= 30 && int.Parse(person.Yas) <= 45);
+	int ageGroup4 = Model.listPeople.Count(person => int.Parse(person.Yas) >= 45);
+
+}
+<div style="height: 500; width: 500px; display: flex; justify-content: center;">
+	<canvas id="myChart" aria-label="chart" ></canvas>
+</div>
+<div>
+	<canvas id="chartId" aria-label="chart" height="250" width="580"></canvas>
+</div>
+<div>
+	<canvas id="ageGroupChart"></canvas>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script>
+	var chrt = document.getElementById("chartId").getContext("2d");
+	var chartId = new Chart(chrt,{
+		type:'pie',
+		data:{
+			labels: ["Erkek","Kadın"],
+			datasets: [{
+				label: "Cinsiyet Oranı",
+				data: [@maleCount,@femaleCount],
+				backgroundColor:['aqua','pink'],
+				hovarOffset:5
+			}],
+		},
+		options: {
+			responsive: false,
+		},
+	});
+</script>
+
+<script>
+	const ctx = document.getElementById('myChart');
+
+	new Chart(ctx,{
+		type: 'bar',
+		data:{
+			labels: ['0-15','15-30','30-45','45+'],
+			datasets: [{
+				label: "Yaş Dağılımları",
+				data: [@(ageGroup1),@(ageGroup2),@(ageGroup3),@(ageGroup4)],
+				borderWidth:1
+			}]
+		},
+		options: {
+			scales: {
+				y: {
+					beingAtZero: true
+				}
+			}
+		}
+	});
+</script>
